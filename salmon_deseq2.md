@@ -58,7 +58,7 @@ see https://salmon.readthedocs.io/en/latest/salmon.html#description-of-important
 
 
 
-Example ISCA array script (runs through all read-pairs in current directory)
+Example slurm array script (runs through all read-pairs in current directory)
 
 ```
 #!/bin/bash
