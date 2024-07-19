@@ -49,5 +49,5 @@ vsd_mat_batch <- limma::removeBatchEffect(vsd_mat, batch=vsd$Batch, batch2=vsd$R
 vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch,batch=as.factor(colData$seqdep.cat), batch2=as.factor(colData$Sequencing_batch),design=mm)
 
 #correct for sex and age
-vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch, batch=as.factor(colData$Sex), covariates=colData$AgeBL, design=mm)![image](https://github.com/user-attachments/assets/df7366f2-354f-41f5-8ad9-3ab8d25f43b2)
+vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch, batch=as.factor(colData$Sex), covariates=colData$AgeBL, design=mm)
 ```
