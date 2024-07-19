@@ -1,6 +1,7 @@
 # Weighted correlation network analysis using WGCNA
 
-Data preparation:  
+**Data preparation**
+
 1: Create DESeq2 object  
 2: Keep genes with at least 20 samples with a count of 10 or higher  
 3: Remove globin-encoding genes  
@@ -51,3 +52,7 @@ vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch,batch=as.factor(colData$
 #correct for sex and age
 vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch, batch=as.factor(colData$Sex), covariates=colData$AgeBL, design=mm)
 ```
+**Needed for WGCNA analysis**  
+
+Matrix of expression levels - rows = samples, columns = genes  
+Traits - rows = samples, columns = traits  
