@@ -136,8 +136,8 @@ dds <- DESeqDataSet(gse, design = ~ Sex + Batch + Sub_Group)
 nrow(dds)
 
 # Filter lowly expressed genes
-# keep genes with at least 10 samples with a count of 10 or higher
-keep <- rowSums(counts(dds) > 10) >= 10
+# keep genes with at least 20 samples with a count of 10 or higher
+keep <- rowSums(counts(dds) >= 10) >= 20
 dds <- dds[keep,]
 nrow(dds)
 
