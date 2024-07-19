@@ -5,7 +5,7 @@ Data preparation:
 2: Keep genes with at least 20 samples with a count of 10 or higher  
 3: Remove globin-encoding genes  
 4: Variance stabilised transformation  
-5: Correct for batch-effects / co-variates  
+5: Correct for batch-effects / co-variates using limma 
 
 ```
 #create DESeq2 object
@@ -37,4 +37,17 @@ vsd_mat <- assay(vsd)
 
 #Export file
 write.csv(vsd_mat, file= "vsd_mat_WGCNA_project_10082_v2.csv")![image](https://github.com/user-attachments/assets/7b355788-54e9-47f9-bc9c-f55e1f210a12)
+
+#Use limma to remove batch effects / confounding co-variates
+library(limma)
+mm <- model.matrix(~ Sub_Group, colData(vsd))
+
+#Use limma to remove batch effects - RNA_Batch and RIN
+vsd_mat_batch <- limma::removeBatchEffect(vsd_mat, batch=vsd$Batch, batch2=vsd$RIN.cat, design=mm)
+
+#correct for sequencing depth and batch
+vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch,batch=as.factor(colData$seqdep.cat), batch2=as.factor(colData$Sequencing_batch),design=mm)
+
+#correct for sex and age
+vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch, batch=as.factor(colData$Sex), covariates=colData$AgeBL, design=mm)![image](https://github.com/user-attachments/assets/df7366f2-354f-41f5-8ad9-3ab8d25f43b2)
 ```
