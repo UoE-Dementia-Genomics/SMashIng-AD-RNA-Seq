@@ -1,8 +1,6 @@
 # RNA-seq analysis workflow using Salmon and DESeq2
 
-Example workflow using Salmon and DESeq2 to analyse short-read RNA-seq data looking at differential gene expression.
-
-This example is based on human RNA-seq data
+Workflow using Salmon and DESeq2 to analyse short-read RNA-seq data looking at differential gene expression.
 
 Workflow adapted from https://bioconductor.org/packages/release/workflows/vignettes/rnaseqGene/inst/doc/rnaseqGene.html
 
