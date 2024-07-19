@@ -36,9 +36,6 @@ dds <- DESeq(dds)
 vsd <- vst(dds, blind = FALSE)
 vsd_mat <- assay(vsd)
 
-#Export file
-write.csv(vsd_mat, file= "vsd_mat_WGCNA_project_10082_v2.csv")![image](https://github.com/user-attachments/assets/7b355788-54e9-47f9-bc9c-f55e1f210a12)
-
 #Use limma to remove batch effects / confounding co-variates
 library(limma)
 mm <- model.matrix(~ Sub_Group, colData(vsd))
@@ -51,6 +48,9 @@ vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch,batch=as.factor(colData$
 
 #correct for sex and age
 vsd_mat_batch <- limma::removeBatchEffect(vsd_mat_batch, batch=as.factor(colData$Sex), covariates=colData$AgeBL, design=mm)
+
+#Export corrected vsd file
+write.csv(vsd_mat_batch, file= "vsd_mat_batch.csv")
 ```
 **Needed for WGCNA analysis**  
 
@@ -66,22 +66,6 @@ enableWGCNAThreads()
 vsd_mat_batch <- read.csv("vsd_mat_batch.csv", header=TRUE, check.names = FALSE, row.names = 1)
 colData <- read.csv("colData.csv", header=TRUE, check.names = FALSE, row.names = 1)
 
-#convert some values to factors
-#colData$patient_ID <- as.factor(colData$patient_ID)
-#colData$V1_PatID <- as.factor(colData$V1_PatID)
-#colData$Visit <- as.factor(colData$Visit)
-#colData$Sub_Group <- as.factor(colData$Sub_Group)
-#colData$apoe <- as.factor(colData$apoe)
-#colData$Sex <- as.factor(colData$Sex)
-#colData$SubMemoryLoss <- as.factor(colData$SubMemoryLoss)
-#colData$finalmemorystatus <- as.factor(colData$finalmemorystatus)
-#colData$SmokeHx <- as.factor(colData$SmokeHx)
-#colData$Sequencing_batch <- as.factor(colData$Sequencing_batch)
-#colData$Batch <- as.factor(colData$Batch)
-#colData$Plate <- as.factor(colData$Plate)
-#colData$dementiatype <- as.factor(colData$dementiatype)
-#colData$exeterpax <- as.factor(colData$exeterpax)
- 
 #transpose vsd_mat_batch
 datExpr0 = as.data.frame(t(vsd_mat_batch_sex_age))
 
